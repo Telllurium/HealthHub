@@ -13,7 +13,22 @@ RSpec.describe 'parse:hospitals' do
     end
 
     it 'saves hospitals to the database' do
-      expect { Rake::Task['parse:hospitals'].invoke }.to change { Hospital.count }.by_at_least(1)
+      expect {
+        Rake::Task['parse:hospitals'].invoke
+      }.to change { Hospital.count }.by_at_least(1)
+    end
+
+    it 'saves correct data to the database' do
+      Rake::Task['parse:hospitals'].invoke
+      hospital = Hospital.first
+      expect(hospital).to have_attributes(
+                            rank: be_an(Integer),
+                            name: be_a(String),
+                            size: be_an(Integer),
+                            visibility: be_an(Integer),
+                            rich_files: be_an(Integer),
+                            scholar: be_an(Integer)
+                          )
     end
 
     it 'handles errors gracefully' do

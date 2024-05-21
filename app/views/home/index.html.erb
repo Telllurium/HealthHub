@@ -38,6 +38,20 @@
     th {
         background-color: #f2f2f2;
     }
+    .form-group {
+        margin-bottom: 10px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
 </style>
 
 <div class="header">
@@ -56,6 +70,16 @@
 <div class="container">
   <h1>Welcome to HealthHub</h1>
   <h2>Список лікарень</h2>
+
+  <%= form_with url: root_path, method: :get, local: true do %>
+    <div class="form-group">
+      <%= label_tag :search, "Пошук по лікарням:" %>
+      <%= text_field_tag :search, params[:search], class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= submit_tag "Пошук", class: "btn btn-primary" %>
+    </div>
+  <% end %>
 
   <table>
     <thead>
